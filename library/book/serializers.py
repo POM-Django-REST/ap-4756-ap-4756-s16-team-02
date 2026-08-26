@@ -1,10 +1,24 @@
+from author.models import Author
 from rest_framework import serializers
 
 from .models import Book
 
 
 class BookSerializer(serializers.ModelSerializer):
+    author_ids = serializers.PrimaryKeyRelatedField(
+        source="authors",
+        queryset=Author.objects.all(),
+        many=True,
+    )
+
     class Meta:
         model = Book
 
-        fields = "__all__"
+        fields = [
+            "id",
+            "name",
+            "description",
+            "count",
+            "author_ids",
+            "year_of_publication",
+        ]
