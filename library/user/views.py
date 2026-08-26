@@ -21,6 +21,20 @@ def user_info(request, id: int):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by("id")
+    # queryset = User.objects.all().order_by("id")
     serializer_class = serializers.UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = User.objects.all().order_by("id")
+        user = self.request.user
+
+        if not user.is_staff:
+            queryset = queryset.filter(pk=user.id)
+
+        return queryset
+
+    def get_permissions(self):
+        return ([permissions.IsAuthenticated()]
+                if self.action in ("list", "retrieve")
+                else [permissions.IsAdminUser()])
+    
