@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
+from rest_framework import permissions, viewsets
 
+from . import serializers
 from .forms import AuthorForm
 from .models import Author
 
@@ -52,3 +54,9 @@ def author_delete(request: HttpRequest, id: int) -> HttpResponse:
 # @user_passes_test(is_admin)
 # def author_books(request: HttpRequest, id: int) -> HttpResponse:
 #     return render(request, "books/book_list", {"search_author": id})
+
+
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all().order_by("id")
+    serializer_class = serializers.AuthorSerializer
+    permission_classes = [permissions.IsAuthenticated]

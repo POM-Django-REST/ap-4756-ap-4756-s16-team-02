@@ -17,7 +17,6 @@ class Author(models.Model):
     name = models.CharField(blank=True, max_length=20)
     surname = models.CharField(blank=True, max_length=20)
     patronymic = models.CharField(blank=True, max_length=20)
-    id = models.AutoField(primary_key=True)
 
     def __str__(self):
         """
