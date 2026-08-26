@@ -28,5 +28,5 @@ urlpatterns = [
     path("user/", include("user.urls")),
     path("", views.home, name="home"),
     path("api/<str:version>/book/", include("book.api_urls")),
-    # path("api/<str:version>/order/", include("order.api_urls")),
+    path("api/<str:version>/order/", include("order.api_urls")),
 ]
