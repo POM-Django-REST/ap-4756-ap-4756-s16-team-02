@@ -1,11 +1,14 @@
 from author.models import Author
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 from .models import Book
 
 
 class BookSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=False)
+    id = serializers.IntegerField(
+        required=False, validators=[UniqueValidator(queryset=Book.objects.all())]
+    )
 
     author_ids = serializers.PrimaryKeyRelatedField(
         source="authors",
