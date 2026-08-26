@@ -38,10 +38,32 @@ class UserOrdersView(APIView):
         if self.check_version(version):
             if self.check_user_id(request, user_id):
                 serializer = OrderSerializer(data=request.data)
-                if serializer.is_valid():
-                    serializer.save()
-                    return Response(serializer.data, status=HTTP_201_CREATED)
-                return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return Response(serializer.data, status=HTTP_201_CREATED)
+
+            return Response({"error": "Invalid user ID"}, status=HTTP_400_BAD_REQUEST)
+        return Response({"error": "Invalid version"}, status=HTTP_400_BAD_REQUEST)
+
+
+class UserOrderDetailsView(APIView):
+    def check_version(self, version: str) -> bool:
+        return version == "v1"
+
+    def get_permissions(self):
+        return [permissions.IsAuthenticated()]
+
+    def check_user_id(self, request: Request, user_id: int) -> bool:
+        return request.user.id == user_id
+
+    def get(
+        self, request: Request, version: str, user_id: int, order_id: int
+    ) -> Response:
+        if self.check_version(version):
+            if self.check_user_id(request, user_id):
+                order = get_object_or_404(Order, id=order_id)
+                serializer = OrderSerializer(order)
+                return Response(serializer.data, status=HTTP_200_OK)
 
             return Response({"error": "Invalid user ID"}, status=HTTP_400_BAD_REQUEST)
         return Response({"error": "Invalid version"}, status=HTTP_400_BAD_REQUEST)
