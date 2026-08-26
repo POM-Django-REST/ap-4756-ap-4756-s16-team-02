@@ -5,6 +5,8 @@ from .models import Book
 
 
 class BookSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+
     author_ids = serializers.PrimaryKeyRelatedField(
         source="authors",
         queryset=Author.objects.all(),

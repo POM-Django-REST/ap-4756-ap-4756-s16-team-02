@@ -6,6 +6,8 @@ from .models import Order
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+
     book_id = serializers.PrimaryKeyRelatedField(
         source="book",
         queryset=Book.objects.all(),
@@ -16,6 +18,8 @@ class OrderSerializer(serializers.ModelSerializer):
         queryset=CustomUser.objects.all(),
         many=False,
     )
+
+    planned_end_at = serializers.DateTimeField(required=True, allow_null=False)
 
     class Meta:
         model = Order
