@@ -5,8 +5,8 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-from django.db import models
 from django.core.exceptions import ValidationError
+from django.db import models
 
 
 class UserRole(models.IntegerChoices):
@@ -82,7 +82,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    id = models.AutoField(primary_key=True)
 
     USERNAME_FIELD = 'email'
     objects = CustomUserManager()

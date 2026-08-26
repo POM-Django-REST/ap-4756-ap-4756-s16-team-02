@@ -7,6 +7,8 @@ from django.shortcuts import redirect, render
 
 from . import forms
 
+User = get_user_model()
+
 
 def login_view(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
@@ -39,7 +41,6 @@ def register_view(request: HttpRequest) -> HttpResponse:
             password = cleaned.pop("password")
 
             try:
-                User = get_user_model()
                 new_user = User.objects.create_user(email, password, **cleaned)
                 login(request, new_user)
                 messages.success(request, f"Logged in as {email}")

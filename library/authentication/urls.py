@@ -1,4 +1,5 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
 
 from . import views
 
@@ -8,5 +9,5 @@ urlpatterns = [
     path('', views.login_view, name='login'),
     path('register/', views.register_view, name='register'),
     path('logout/', views.logout_view, name='logout'),
-    path('edit/', views.edit_view, name='edit')
+    path('edit/', views.edit_view, name='edit'),
 ]
