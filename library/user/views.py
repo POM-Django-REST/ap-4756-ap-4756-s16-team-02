@@ -35,6 +35,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         return ([permissions.IsAuthenticated()]
-                if self.action in ("list", "retrieve")
-                else [permissions.IsAdminUser()])
+            if self.action in ("list", "retrieve")
+            else [permissions.IsAdminUser()])
     
