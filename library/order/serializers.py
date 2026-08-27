@@ -22,8 +22,6 @@ class OrderSerializer(serializers.ModelSerializer):
         many=False,
     )
 
-    planned_end_at = serializers.DateTimeField(required=True, allow_null=False)
-
     class Meta:
         model = Order
 

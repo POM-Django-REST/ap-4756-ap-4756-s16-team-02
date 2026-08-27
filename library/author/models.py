@@ -23,10 +23,9 @@ class Author(models.Model):
         Magic method is redefined to show all information about Author.
         :return: author id, author name, author surname, author patronymic
         """
-        return ' '.join([
-            i for i in (self.name, self.patronymic, self.surname)
-            if i is not None
-        ])
+        return " ".join(
+            [i for i in (self.name, self.patronymic, self.surname) if i is not None]
+        )
 
     def __repr__(self):
         """

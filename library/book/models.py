@@ -16,13 +16,12 @@ class Book(models.Model):
     type authors: list->Author
     """
 
-    name = models.CharField(blank=True, max_length=128, verbose_name="Title")
+    name = models.CharField(max_length=128, verbose_name="Title")
     description = models.CharField(blank=True, max_length=2048)
-    count = models.IntegerField(default=10, verbose_name="Total amount")
+    count = models.IntegerField(verbose_name="Total amount")
     id = models.AutoField(primary_key=True)
     authors = models.ManyToManyField("author.Author", related_name="books")
     year_of_publication = models.DateField(blank=True, null=True)
-
 
     def __str__(self):
         """

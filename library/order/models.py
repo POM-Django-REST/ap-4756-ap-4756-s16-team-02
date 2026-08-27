@@ -20,11 +20,13 @@ class Order(models.Model):
     type planned_end_at: int (timestamp)
     """
 
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, default=None, related_name="orders")
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="orders")
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    end_at = models.DateTimeField(default=None, null=True, blank=True, verbose_name="Returned on")
-    planned_end_at = models.DateTimeField(default=None, verbose_name="Planned return on")
+    end_at = models.DateTimeField(
+        default=None, null=True, blank=True, verbose_name="Returned on"
+    )
+    planned_end_at = models.DateTimeField(verbose_name="Planned return on")
 
     def __str__(self):
         """
