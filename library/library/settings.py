@@ -65,6 +65,8 @@ REST_FRAMEWORK = {
     "VERSION_PARAM": "version",
 }
 
+APPEND_SLASH = False
+
 ROOT_URLCONF = "library.urls"
 
 TEMPLATES = [

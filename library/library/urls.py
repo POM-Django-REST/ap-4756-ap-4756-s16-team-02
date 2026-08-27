@@ -22,7 +22,7 @@ from user.views import UserViewSet
 
 from . import views
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 router.register(r"user", UserViewSet, basename="user")
 router.register(r"author", AuthorViewSet)
 
@@ -39,7 +39,7 @@ urlpatterns = [
         "api-auth/",
         include("rest_framework.urls", namespace="rest_framework"),
     ),
-    path("api/<str:version>/book/", include("book.api_urls")),
-    path("api/<str:version>/order/", include("order.api_urls")),
-    path("api/<str:version>/user/", include("user.api_urls")),
+    path("api/<str:version>/book", include("book.api_urls")),
+    path("api/<str:version>/order", include("order.api_urls")),
+    path("api/<str:version>/user", include("user.api_urls")),
 ]
