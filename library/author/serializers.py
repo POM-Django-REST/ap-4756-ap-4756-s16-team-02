@@ -9,9 +9,6 @@ class AuthorSerializer(serializers.ModelSerializer):
         required=False, validators=[UniqueValidator(queryset=Author.objects.all())]
     )
 
-    name = serializers.CharField(required=True)
-    surname = serializers.CharField(required=True)
-
     class Meta:
         model = Author
         fields = ["id", "name", "surname", "patronymic"]
